@@ -65,11 +65,42 @@ const subjects = [
     name: 'declarative programming ',
   },
 ];
+console.log('원본데이터:',subjects)
 
 // 1. 객체 이름(name) 속성 좌우 공백 제거 함수 선언
-// 2. 객체 이름(name) 속성 대문자화 함수 선언
-// 3. 과목 이름 "좌우 공백 제거" → "대문자화" 후, 새로운 과목 배열 생성
+function toTrim(object) {
+  const o = {...object};
+  o.name = o.name.trim();
+  return o;
+}
+// console.log(toTrim(subjects[0]));
+// console.log(toTrim(subjects[1]));
 
+// 2. 객체 이름(name) 속성 대문자화 함수 선언
+function toUpperCase(object) {
+  const o = {...object};
+  o.name = o.name.toUpperCase();
+  return o;
+}
+// console.log(toUpperCase(subjects[0]));
+// console.log(toUpperCase(subjects[1]));
+
+// 3. 과목 이름 "좌우 공백 제거" → "대문자화" 후, 새로운 과목 배열 생성
+// ES5의 map()을 사용해야 한다.
+// - 조건 1. 새로운 배열 반환
+// - 조건 2. 배열 순환 후, 기능 처리(적용)
+
+/* const updateSubjects = subjects.map(subject => {
+  const copySubject = toTrim(subject);
+  return copySubject;
+}).map(subject=> {
+  const copySubject = toUpperCase(subject);
+  return copySubject;
+}) */
+
+const updateSubjects = subjects.map(toTrim).map(toUpperCase);
+
+console.log('업데이트 데이터:',updateSubjects)
 
 // --------------------------------------------------------------------------
 // JavaScript 프로그래밍 패러다임
