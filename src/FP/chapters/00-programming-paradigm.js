@@ -20,9 +20,37 @@ const courses = [
   },
 ];
 
+// console.log('원본데이터\n', courses);
+
 // 1. 과정 배열을 순환하여 각 과정 이름의 좌우 공백 제거
 // 2. 과정 배열을 순환하여 각 과정 이름 대문자화
 
+// ES2015(v6)
+// [전개구문(spread syntax)]을 사용하면 배열을 복사할 수 있다.
+let updateCourses = [...courses];
+
+// [기능 1.] 좌우 공백 제거
+// 명령형으로 프로그래밍 console.error('한다:',한다)
+// C, JAVA 문법
+// for문
+for(let i=0, l=updateCourses.length; i<l; i++) {
+  // 객체 복제는 어떻게???
+  // [전개구문(spread syntax)]을 사용한다.
+  // 얕은 복사 (shallow copy)
+  const course = { ...updateCourses[i] };
+  course.name = course.name.trim();
+  updateCourses[i] = course;
+}
+
+// [기능 2.] 대문자화
+for(let i=0, l=updateCourses.length; i<l; i++) {
+  const course = updateCourses[i]
+  course.name = course.name.toUpperCase();
+}
+
+// console.log('변형된 데이터\n', updateCourses);
+
+// console.assert(Object.is(courses, updateCourses), '🚨 courses와 updateCourses는 동일한 객체이다.')
 
 // --------------------------------------------------------------------------
 // 선언형 프로그래밍
