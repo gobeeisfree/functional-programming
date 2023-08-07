@@ -120,12 +120,12 @@ const updateSubjects = subjects.map(toTrim).map(toUpperCase).map(ToUnderscore);
 // JavaScript 프로그래밍 패러다임
 // → 함수(function)를 사용해 구현합니다.
 
-function createCountUpButton(container) {
+function createCountUpButton(container, {count: initialCount = 0, step = 1} = {}) {
   if (!container || container.nodeType !== document.ELEMENT_NODE) {
     throw new Error('container는 문서의 요소가 아닙니다.')
   }
 
-  let count = 0;
+  let count = initialCount;
 
   const countUpButton = document.createElement('button');
 
@@ -134,7 +134,7 @@ function createCountUpButton(container) {
   }
 
   const handleCountUp = (e) => {
-    count += 1;
+    count += step;
     render(count);
   }
   
@@ -149,14 +149,18 @@ function createCountUpButton(container) {
 
 const demoContainer = document.getElementById('demo')
 
+// 재사용을 목적으로 하는 컴포넌트 (함수로 구현)
+/* 기본 옵션: { count: 0, step: 1, max = 10 } */
+
 createCountUpButton(demoContainer);
-createCountUpButton(demoContainer);
-createCountUpButton(demoContainer);
-createCountUpButton(demoContainer);
-createCountUpButton(demoContainer);
-createCountUpButton(demoContainer);
-createCountUpButton(demoContainer);
-createCountUpButton(demoContainer);
+createCountUpButton(demoContainer, { count: 1}/* 사용자 정의 옵션 */);
+createCountUpButton(demoContainer, { count: 2});
+createCountUpButton(demoContainer, { count: 3, step: 2});
+
+// 과제
+// - 'max' prop을 추가하고, count 값이 max 보다 커지면 사용자가 더 이상 버튼을 누를 수 없도록 막는다.
+// - 'max' prop을 추가하고, count 값이 max 보다 커지면 화면의 카운트는 버튼을 눌러도 max 값에 머무른다.
+
 
 // --------------------------------------------------------------------------
 // JavaScript 프로그래밍 패러다임
