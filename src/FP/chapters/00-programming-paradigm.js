@@ -139,16 +139,24 @@ function createCountUpButton(container) {
   }
   
   countUpButton.setAttribute('type', 'button');
-  render(count);
-
+  countUpButton.classList.add('CountUpButton');
   countUpButton.addEventListener('click', handleCountUp);
-
+  
+  render(count);
+  
   container.append(countUpButton);
 }
 
-createCountUpButton(
-  document.getElementById('demo')
-);
+const demoContainer = document.getElementById('demo')
+
+createCountUpButton(demoContainer);
+createCountUpButton(demoContainer);
+createCountUpButton(demoContainer);
+createCountUpButton(demoContainer);
+createCountUpButton(demoContainer);
+createCountUpButton(demoContainer);
+createCountUpButton(demoContainer);
+createCountUpButton(demoContainer);
 
 // --------------------------------------------------------------------------
 // JavaScript 프로그래밍 패러다임
