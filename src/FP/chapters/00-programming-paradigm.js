@@ -48,7 +48,14 @@ for(let i=0, l=updateCourses.length; i<l; i++) {
   course.name = course.name.toUpperCase();
 }
 
-// console.log('변형된 데이터\n', updateCourses);
+// [기능 3.] 배열 원소의 "name" 속성의 공백을 밑줄(_)로 변경하는 기능 추가
+// 명령형 프로그래밍 방식으로
+for(let i=0, l=updateCourses.length; i<l; i++) {
+  const course = updateCourses[i]
+  course.name = course.name.replace(/\s+/g, '_');
+}
+
+console.log('변형된 데이터\n', updateCourses);
 
 // console.assert(Object.is(courses, updateCourses), '🚨 courses와 updateCourses는 동일한 객체이다.')
 
@@ -85,6 +92,13 @@ function toUpperCase(object) {
 // console.log(toUpperCase(subjects[0]));
 // console.log(toUpperCase(subjects[1]));
 
+// 3. 배열 원소의 "name" 속성의 공백을 밑줄(_)로 변경하는 기능 추가
+function ToUnderscore(object) {
+  const o = {...object};
+  o.name = o.name.replace(/\s+/g, '_');
+  return o;
+}
+
 // 3. 과목 이름 "좌우 공백 제거" → "대문자화" 후, 새로운 과목 배열 생성
 // ES5의 map()을 사용해야 한다.
 // - 조건 1. 새로운 배열 반환
@@ -98,7 +112,7 @@ function toUpperCase(object) {
   return copySubject;
 }) */
 
-const updateSubjects = subjects.map(toTrim).map(toUpperCase);
+const updateSubjects = subjects.map(toTrim).map(toUpperCase).map(ToUnderscore);
 
 console.log('업데이트 데이터:',updateSubjects)
 
