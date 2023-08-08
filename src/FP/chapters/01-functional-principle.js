@@ -55,20 +55,57 @@ function fetchAndRenderAndLogAlbumList() {
 // 함수는 단 하나의 기능에 집중합니다.
 // - 위 함수 로직을 단 하나의 기능에 집중하도록 분리 구성해봅니다.
 
-function fetchData() {}
+function fetchData(endpoint) {
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .catch((error) => console.error(error.message));
+}
+function renderAlbumList(data, container) {
+  container.innerHTML = `
+    <ul class="albumList">
+      ${data
+        // list rendering
+        // render lists
+        .map(
+          ({ albumId, id, title, url, thumbnailUrl }) => 
+          `
+            <li class="albumItem">
+              <a class="albumLink" href="${url}">
+                <img class="albumThumbnail" src="${thumbnailUrl}" alt="" />
+                <div role="group" class="albumInfo">
+                  <strong class="albumTitle">${title}</strong>
+                  <span class="albumId">${albumId}</span>
+                </div>
+              </a>
+            </li>
+          `
+        )
+        .join('')}
+    </ul>
+  `;
 
-function render() {}
-
-function log() {}
-
-
-function run() {
-  // 데이터 패치(가져오기)
-  // 데이터 기반 렌더링
-  // 로그
+  return container;
 }
 
-// run();
+function log(container) {
+  console.log(container.outerHTML);
+}
+
+async function run() {
+  // 데이터 패치(가져오기)
+  const responseData = await fetchData('https://jsonplaceholder.typicode.com/album/1/photos?_start=0&_limit=4');
+  console.log(responseData);
+
+  // 데이터 기반 렌더링
+  const container = renderAlbumList(responseData, document.getElementById('demo'));
+
+  console.log(container);
+
+  // 로그
+  log(container);
+}
+
+run();
 
 
 // --------------------------------------------------------------------------
@@ -84,11 +121,11 @@ function sortBy(data) {
 }
 
 const sortedArray = sortBy(initialArray);
-
+/* 
 console.assert(
 	!Object.is(initialArray, sortedArray), 
 	'🚨 initialArray와 sortedArray가 동일한 배열 객체입니다.'
 );
-
-console.log('initialArray\n', initialArray);
-console.log('sortedArray\n', sortedArray);
+ */
+// console.log('initialArray\n', initialArray);
+// console.log('sortedArray\n', sortedArray);
