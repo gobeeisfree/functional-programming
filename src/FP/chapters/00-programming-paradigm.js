@@ -168,32 +168,57 @@ function createCountUpButton(container, {count: initialCount = 0, step = 1} = {}
 
 // 붕어빵틀(생성자함수: 클래스)
 class CountUpButton {
-  #config;
-  
-  constructor(userOptions) {
-    this.#config = { ...CountUpButton.defaultProps, ...userOptions };
-    this.init();
-  }
-  
-  init() {
-    console.log(this.#config);
-  }
-  
   // static field
-  static defaultProps = { 
-    count: 0, 
-    step: 1, 
-  };
+  static version = '0.0.1-alpha';
+
+  // private field
+  // must be declared
+  #count;
   
+  // 라이프 사이클 메서드
+  // 생성(constructor) 시점
+  constructor(props) {
+    console.log('생성 시점');
+    this.#count = props.count ?? 0;
+    this.render()
+  }
+
+  // 렌더
+  render() {
+    console.log('렌더 시점');
+    const button = document.createElement('button');
+    button.setAttribute('type', 'button')
+    button.textContent = String(this.#count);
+    return button;
+  }
+  // 마운트(mount) 시점
+  mount(container) {
+    container?.append?.(this.render());
+  }
+  // 성장(update) 시점
+  // 소멸(unmount) 시점
+  unmount() {
+    console.log('소멸 시점');
+  } 
 }
 
 
 // 새로운(new) 붕어빵(객체: 인스턴스) 생성
 const firstCountUp = new CountUpButton({
-  step: 3,
+  count: 1,
+});
+const secondCountUp = new CountUpButton({
+  count: 2,
+});
+const thirdCountUp = new CountUpButton({
+  count: 3,
 });
 
 const demoContainer = document.getElementById('demo')
+
+firstCountUp.mount(demoContainer);
+secondCountUp.mount(demoContainer);
+thirdCountUp.mount(demoContainer);
 
 // demoContainer.append(firstCountUp.render());
 
