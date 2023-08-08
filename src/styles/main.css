@@ -1,5 +1,5 @@
 :root {
-  --primary: #3EC3FD
+  --primary: #3EC3FD;
 }
 
 body {
@@ -26,4 +26,11 @@ body {
   color: var(--primary);
   background: transparent;
   line-height: 1;
+}
+
+.container {
+  display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 20px;
 }
